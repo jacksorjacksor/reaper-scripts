@@ -1,0 +1,25 @@
+// get the number of selected items
+num_items = CountSelectedMediaItems(0);
+
+// loop over all selected items
+for (i = 0; i < num_items; i += 1)
+{
+    // get the current selected item
+    item = GetSelectedMediaItem(0, i);
+    
+    // get the current playback rate
+    take = GetActiveTake(item);
+    playrate = GetMediaItemTakeInfo_Value(take, "D_PLAYRATE");
+    
+    // set the new playback rate to be half of the current value
+    SetMediaItemTakeInfo_Value(take, "D_PLAYRATE", playrate * 2);
+    
+    // get the current length of the item
+    length = GetMediaItemInfo_Value(item, "D_LENGTH");
+    
+    // multiply the length by 2
+    SetMediaItemInfo_Value(item, "D_LENGTH", length / 2);
+}
+
+// update the arrangement (redraw) and recompute the peak cache
+UpdateArrange();
